@@ -9,7 +9,14 @@
   },
   "dependencies": {
     "core-js": "^3.8.3",
-    "vue": "^3.2.13"
+    "node-sass": "^7.0.1",
+    "oh-vue-icons": "^1.0.0-rc2",
+    "sass-loader": "^12.6.0",
+    "vue": "^3.2.13",
+    "vue-awesome": "^4.5.0",
+    "vue-icon": "^2.2.0",
+    "vue-router": "^4.0.14",
+    "vue-simple-icons": "^4.7.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",

@@ -1,0 +1,30 @@
+.fl-table {
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: normal;
+    border: none;
+    border-collapse: collapse;
+    width: 100%;
+    max-width: 100%;
+    white-space: nowrap;
+    background-color: white;
+    td,th{
+        text-align: center;
+        padding: 25px;
+    }
+    td{
+        border-right: 1px solid #f8f8f8;
+        font-size: 12px;
+    }
+    thead {
+        th{
+            color: #9B9EAC;
+        }
+    }
+    tbody{
+        tr:nth-child(odd) {
+            background: #F8F8F8;
+        }
+    }
+    
+}
