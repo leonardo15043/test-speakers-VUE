@@ -5,6 +5,7 @@
   <div class="container">
       <button class="btn"> <v-icon name="hi-plus-sm" /> <span>Add new user</span></button>
       <div class="box mt-1">
+        <div class="title">Users</div>
         <table class="fl-table">
           <thead>
             <tr>
