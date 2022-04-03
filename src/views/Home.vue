@@ -9,46 +9,24 @@
         <table class="fl-table">
           <thead>
             <tr>
-                <th>Name</th>
-                <th>Username</th>
-                <th>Email</th>
-                <th>Address</th>
-                <th>Company</th>
-                <th>Options</th>
+              <th>Name</th>
+              <th>Username</th>
+              <th>Email</th>
+              <th>Address</th>
+              <th>Company</th>
+              <th>Options</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>Lorem ip</td>
-              <td>Lorem ip</td>
-              <td>Lorem ip</td>
-              <td>Lorem ip</td>
-              <td>Lorem ip</td>
-              <td><a href="#">View todos</a></td>
-            </tr>
-            <tr>
-              <td>Lorem ip</td>
-              <td>Lorem ip</td>
-              <td>Lorem ip</td>
-              <td>Lorem ip</td>
-              <td>Lorem ip</td>
-              <td><a href="#">View todos</a></td>
-            </tr>
-            <tr>
-              <td>Lorem ip</td>
-              <td>Lorem ip</td>
-              <td>Lorem ip</td>
-              <td>Lorem ip</td>
-              <td>Lorem ip</td>
-              <td><a href="#">View todos</a></td>
-            </tr>
-            <tr>
-              <td>Lorem ip</td>
-              <td>Lorem ip</td>
-              <td>Lorem ip</td>
-              <td>Lorem ip</td>
-              <td>Lorem ip</td>
-              <td><a href="#">View todos</a></td>
+            <tr v-for="user in users" :key="user.id">
+              <td >{{ user.name }}</td>
+              <td >{{ user.username }}</td>
+              <td >{{ user.email }}</td>
+              <td >{{ user.address.street }}</td>
+              <td >{{ user.company.name }}</td>
+              <td >
+                <RouterLink :to="{ path: `/todos/${user.id}`, params: {id: this.id} }">View todos</RouterLink>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -58,11 +36,22 @@
 <script>
 import Header from "@/components/Header.vue";
 import Menu from "@/components/Menu.vue";
+import { allUsers } from '../services/UsersService';
 export default {
   name: "Dashboard",
+  data(){
+    return {
+      users: []
+    }
+  },
   components: {
     Header,
-    Menu
-  }
-};
+    Menu,
+  },
+  async created(){
+    const { data } = await allUsers();
+    this.users = data;
+  },
+ 
+}
 </script>
