@@ -2,7 +2,7 @@
   <Header></Header>
   <Menu></Menu>
   <div class="container">
-    <button class="btn" @click="formAdd = !formAdd"> <v-icon name="hi-plus-sm" /> <span>Add new todo</span></button>
+    <button class="btn" @click="formAdd = !formAdd"> <v-icon name="hi-plus-sm" /><span>Add new todo</span></button>
     <AddTodo @getTodoAdd="getTodoAdd" v-if="formAdd"/>
     <div class="box mt-1">
         <div class="title">Todos</div>
@@ -16,7 +16,7 @@
             <tbody>
                 <tr v-for="todo in todos" :key="todo.id">
                     <td >{{ todo.title }}</td>
-                    <td >{{ todo.completed }}</td>
+                    <td><input type="checkbox" id="checkAvanzado" @click="todoState(todo)"/></td>
                 </tr>
             </tbody>
         </table>
@@ -28,7 +28,7 @@
 import Header from "@/components/Header.vue";
 import Menu from "@/components/Menu.vue";
 import AddTodo from "@/components/AddTodo.vue";
-import { getTodos } from '../services/TodosService';
+import { getTodos, updateTodo } from '../services/TodosService';
 
 export default {
   name: "Todos",
@@ -51,6 +51,11 @@ export default {
     getTodoAdd(data) {
       this.todos.unshift(data);
       this.formAdd = false;
+    },
+    todoState( todo ){
+      todo.completed = !todo.completed;
+      updateTodo(todo).then(da=>{
+      });
     }
   }
 }

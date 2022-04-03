@@ -3,7 +3,7 @@
         <div class="title-menu">System</div>
         <div class="content-menu">
             <ul>
-                <li><v-icon name="hi-solid-users"/><span>Users</span></li>
+                <li><RouterLink :to="{ path: `/home/` }"><v-icon name="hi-solid-users"/><span>Users</span></RouterLink></li>
             </ul>
         </div>
     </div>
