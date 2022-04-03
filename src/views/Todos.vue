@@ -2,6 +2,8 @@
   <Header></Header>
   <Menu></Menu>
   <div class="container">
+    <button class="btn" @click="formAdd = !formAdd"> <v-icon name="hi-plus-sm" /> <span>Add new todo</span></button>
+    <AddTodo @getTodoAdd="getTodoAdd" v-if="formAdd"/>
     <div class="box mt-1">
         <div class="title">Todos</div>
         <table class="fl-table">
@@ -25,22 +27,31 @@
 
 import Header from "@/components/Header.vue";
 import Menu from "@/components/Menu.vue";
+import AddTodo from "@/components/AddTodo.vue";
 import { getTodos } from '../services/TodosService';
 
 export default {
   name: "Todos",
   data(){
     return {
-      todos: []
+      todos: [],
+      formAdd: false
     }
   },
   components: {
     Header,
     Menu,
+    AddTodo
   },
   async created(){
     const { data } = await getTodos(this.$route.params.id);
     this.todos = data;
   },
+  methods: {
+    getTodoAdd(data) {
+      this.todos.unshift(data);
+      this.formAdd = false;
+    }
+  }
 }
 </script>
