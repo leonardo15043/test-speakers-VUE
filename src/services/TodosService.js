@@ -11,3 +11,7 @@ export function saveTodo( params ){
 export function updateTodo( params ){
     return axios.put(`https://jsonplaceholder.typicode.com/todos/${ params.id }`,params);
 }
+
+export function deleteTodo( idTodo ){
+    return axios.delete(`https://jsonplaceholder.typicode.com/todos/${ idTodo }`);
+}

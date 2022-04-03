@@ -5,21 +5,23 @@
     <button class="btn" @click="formAdd = !formAdd"> <v-icon name="hi-plus-sm" /><span>Add new todo</span></button>
     <AddTodo @getTodoAdd="getTodoAdd" v-if="formAdd"/>
     <div class="box mt-1">
-        <div class="title">Todos</div>
-        <table class="fl-table">
-            <thead>
-                <tr>
-                    <th>Title</th>
-                    <th>Completed</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="todo in todos" :key="todo.id">
-                    <td >{{ todo.title }}</td>
-                    <td><input type="checkbox" id="checkAvanzado" @click="todoState(todo)"/></td>
-                </tr>
-            </tbody>
-        </table>
+      <div class="title">Todos</div>
+      <table class="fl-table">
+        <thead>
+          <tr>
+              <th>Title</th>
+              <th>Completed</th>
+              <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="todo in todos" :key="todo.id">
+              <td >{{ todo.title }}</td>
+              <td><input type="checkbox" id="checkAvanzado" @click="todoState(todo)"/></td>
+              <td><button class="btn danger" @click="deleteTodo(todo.id)"><span>Delete</span></button></td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </template>
@@ -28,7 +30,7 @@
 import Header from "@/components/Header.vue";
 import Menu from "@/components/Menu.vue";
 import AddTodo from "@/components/AddTodo.vue";
-import { getTodos, updateTodo } from '../services/TodosService';
+import { getTodos, updateTodo, deleteTodo } from '../services/TodosService';
 
 export default {
   name: "Todos",
@@ -54,7 +56,12 @@ export default {
     },
     todoState( todo ){
       todo.completed = !todo.completed;
-      updateTodo(todo).then(da=>{
+      updateTodo(todo).then(data=>{
+      });
+    },
+    deleteTodo( idTodo ){
+      deleteTodo(idTodo ).then( data =>{
+          this.todos = this.todos.filter((todo) => todo.id !== idTodo );
       });
     }
   }
