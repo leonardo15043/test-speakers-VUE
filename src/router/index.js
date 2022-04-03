@@ -12,15 +12,33 @@ const routes = [
   {
     path: "/home",
     name: "Home",
-    component: Home
+    component: Home,
+    meta: { requiresAuth: true }
   },
   {
     path: "/todos/:id",
     name: "Todos",
-    component: Todos
+    component: Todos,
+    meta: { requiresAuth: true }
   }
 ];
 
 const router = createRouter({ history: createWebHistory(process.env.BASE_URL),routes });
+
+router.beforeEach((to, from, next)=>{
+  if(to.matched.some(route => route.meta.requiresAuth)){
+    if(localStorage.getItem('activeSession')){
+      next();
+    } else {
+      next('/');
+    }
+  } else {
+    if(localStorage.getItem('activeSession')){
+      next('/home');
+    }else{
+      next();
+    }
+  }
+});
   
 export default router; 
