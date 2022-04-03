@@ -3,7 +3,8 @@
   <Header></Header>
   <Menu></Menu>
   <div class="container">
-      <button class="btn"> <v-icon name="hi-plus-sm" /> <span>Add new user</span></button>
+      <button class="btn" @click="formAdd = !formAdd"> <v-icon name="hi-plus-sm" /> <span>Add new user</span></button>
+      <AddUser @getUserAdd="getUserAdd" v-if="formAdd"/>
       <div class="box mt-1">
         <div class="title">Users</div>
         <table class="fl-table">
@@ -25,7 +26,7 @@
               <td >{{ user.address.street }}</td>
               <td >{{ user.company.name }}</td>
               <td >
-                <RouterLink :to="{ path: `/todos/${user.id}`, params: {id: this.id} }">View todos</RouterLink>
+                <RouterLink :to="{ path: `/todos/${user.id}`, params: { id: this.id } }">View todos</RouterLink>
               </td>
             </tr>
           </tbody>
@@ -36,22 +37,30 @@
 <script>
 import Header from "@/components/Header.vue";
 import Menu from "@/components/Menu.vue";
+import AddUser from "@/components/AddUser.vue";
 import { allUsers } from '../services/UsersService';
 export default {
   name: "Dashboard",
   data(){
     return {
-      users: []
+      users: [],
+      formAdd: false
     }
   },
   components: {
     Header,
     Menu,
+    AddUser
   },
   async created(){
     const { data } = await allUsers();
     this.users = data;
   },
- 
+  methods: {
+    getUserAdd(data) {
+      this.users.unshift(data);
+      this.formAdd = false;
+    }
+  }
 }
 </script>
